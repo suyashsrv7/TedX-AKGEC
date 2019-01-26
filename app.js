@@ -13,15 +13,13 @@ pg.defaults.ssl = true;
 app.get('/', (req, res)=>{
   res.send("Hello")
 })
-app.listen(port, function () {
-        console.log('Example app listening on port ' + port);
-})
 
-// sequelize
-//   .sync()
-//   .then(res => {
-//     app.listen(port, function () {
-//       console.log('Example app listening on port ' + port);
-//     })
-//   })
-//   .catch(err => console.log(err));
+
+sequelize
+  .sync()
+  .then(res => {
+    app.listen(port, function () {
+      console.log('Example app listening on port ' + port);
+    })
+  })
+  .catch(err => console.log(err));
