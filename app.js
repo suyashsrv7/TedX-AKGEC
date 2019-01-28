@@ -1,5 +1,6 @@
 const express = require('express');
 var pg = require('pg');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,6 +8,7 @@ const port = process.env.PORT || 3000;
 const sequelize = require('./utils/database');
 pg.defaults.ssl = true;
 
+app.use(cors());
 // app.get('/welcome', (req, res) => {
 //   res.status(200).send("welcome to followup");
 // })
