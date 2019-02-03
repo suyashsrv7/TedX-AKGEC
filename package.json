@@ -23,13 +23,12 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.4.0",
+    "node-express-docs": "^1.0.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pg": "^7.8.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.42.0"
   },
-  "devDependencies": {
-    "node-express-docs": "^1.0.0"
-  }
+  "devDependencies": {}
 }

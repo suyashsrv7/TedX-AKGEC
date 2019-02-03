@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 var pg = require('pg');
-const showEndpoints = require('node-express-docs');
+//const showEndpoints = require('node-express-docs');
 
 const cors = require('cors');
 
