@@ -16,9 +16,9 @@ const routes = require('./routes/admin');
 pg.defaults.ssl = true;
 
 app.use(cors());
-// app.use(bodyParser.urlencoded({extended: false}));
-// app.use(bodyParser.json());
-// app.use(passport.initialize());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(passport.initialize());
 app.get('/', (req, res) => {
   res.send("sflkgndkjsfhkjshdflk");
 })
