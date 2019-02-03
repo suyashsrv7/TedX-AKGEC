@@ -19,7 +19,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
-app.use('/api/', routes);
+app.use('/api', routes);
+app.get('/hi', (req, res) => {
+  res.send("sflkgndkjsfhkjshdflk");
+})
 app.get("/__docs", (req, res, err)=> {
   if(req.query.pass === 'YOUR_SECRET'){
     res.send(showEndpoints(app));
