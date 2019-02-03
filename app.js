@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 var pg = require('pg');
-//const showEndpoints = require('node-express-docs');
+const showEndpoints = require('node-express-docs');
 
 const cors = require('cors');
 
@@ -23,14 +23,14 @@ app.get('/', (req, res) => {
   res.send("sflkgndkjsfhkjshdflk");
 })
 app.use('/api', routes);
-// app.get("/__docs", (req, res, err)=> {
-//   if(req.query.pass === 'YOUR_SECRET'){
-//     res.send(showEndpoints(app));
-//   }
-//   else{
-//     res.send("<html><body><h2>UnAuthorized</h2></body></html>")
-//   }
-// });
+app.get("/__docs", (req, res, err)=> {
+  if(req.query.pass === 'YOUR_SECRET'){
+    res.send(showEndpoints(app));
+  }
+  else{
+    res.send("<html><body><h2>UnAuthorized</h2></body></html>")
+  }
+});
 
 
 sequelize
