@@ -1,20 +1,25 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 var pg = require('pg');
+
 const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+const passportConfig = require('./utils/passport');
 const sequelize = require('./utils/database');
+const routes = require('./routes/admin');
+
 pg.defaults.ssl = true;
 
 app.use(cors());
-// app.get('/welcome', (req, res) => {
-//   res.status(200).send("welcome to followup");
-// })
-app.get('/', (req, res)=>{
-  res.send("Hello")
-})
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use('/api/', routes);
+
 
 
 sequelize
