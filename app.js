@@ -16,21 +16,21 @@ const routes = require('./routes/admin');
 pg.defaults.ssl = true;
 
 //app.use(cors());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-app.use(passport.initialize());
+// app.use(bodyParser.urlencoded({extended: false}));
+// app.use(bodyParser.json());
+// app.use(passport.initialize());
 app.get('/', (req, res) => {
-  res.send("sflkgndkjsfhkjshdflk");\
+  res.send("sflkgndkjsfhkjshdflk");
 })
 app.use('/api', routes);
-app.get("/__docs", (req, res, err)=> {
-  if(req.query.pass === 'YOUR_SECRET'){
-    res.send(showEndpoints(app));
-  }
-  else{
-    res.send("<html><body><h2>UnAuthorized</h2></body></html>")
-  }
-});
+// app.get("/__docs", (req, res, err)=> {
+//   if(req.query.pass === 'YOUR_SECRET'){
+//     res.send(showEndpoints(app));
+//   }
+//   else{
+//     res.send("<html><body><h2>UnAuthorized</h2></body></html>")
+//   }
+// });
 
 
 sequelize
