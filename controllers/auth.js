@@ -10,7 +10,6 @@ module.exports = {
            role: 0   
        }
        // role can be changed
-       
        db.Users.create(user).then(saved => {
            res.status(200).json({success: true});
        })
@@ -23,6 +22,8 @@ module.exports = {
     login: (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
+        console.log(username, password);
+        
         const query = db.Users.findOne({
             where: {
                 username: username

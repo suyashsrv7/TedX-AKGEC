@@ -13,6 +13,14 @@ const Speaker = sequelize.define('speaker', {
         type: Sequelize.STRING
     },
 
+    post: {
+        type: Sequelize.STRING
+    },
+
+    description: {
+        type: Sequelize.STRING
+    },
+
     imgUrl: {
         type: Sequelize.STRING
     },

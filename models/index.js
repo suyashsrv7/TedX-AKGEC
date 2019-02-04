@@ -5,7 +5,7 @@ const About = require('./about');
 const db = {
     Users: Users,
     Speakers: Speakers,
-    ABout: About
+    About: About
 }
 
 module.exports = db;
