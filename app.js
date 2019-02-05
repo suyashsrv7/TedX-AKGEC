@@ -14,23 +14,28 @@ const port = process.env.PORT || 3000;
 const passportConfig = require('./utils/passport');
 const sequelize = require('./utils/database');
 const routes = require('./routes/admin');
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'uploads');
-    },
-  
-    filename: (req, file, cb) => {
-      cb(null, file.originalname + '-' + Date.toString);
-    }
-});
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads');
+  },
+
+  filename: (req, file, cb) => {
+    let date = new Date();
+    let filename =date.valueOf().toString() + "-" +file.originalname ;
+    cb(null, filename);
+  }
+});
 
 pg.defaults.ssl = true;
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(multer({storage: storage}).array('image', 20));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit:'50mb', extended: false}));
+app.use(multer({storage: storage}).array('image', 20)) ;
+app.use('/api/uploads', express.static(__dirname + '/uploads'));
+
+// app.use(bodyParser.json({limit:'50mb'}));
+
 app.use(passport.initialize());
 app.get('/', (req, res) => {
   res.send("sflkgndkjsfhkjshdflk");

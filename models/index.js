@@ -1,5 +1,5 @@
 const Users = require('./users');
-const Speakers = require('./speakers');
+const Speakers = require('./speaker');
 const About = require('./about');
 
 const db = {

@@ -1,3 +1,5 @@
+
+
 const db = require('../models/index');
 module.exports = {
     createAboutUsContent: (req, res) => {
@@ -43,30 +45,29 @@ module.exports = {
     },
 
     createSpeakers: (req, res) => {
-       const files = req.files;
-       const info = req.body;
+       console.log(req.files, req.body);
+        const files = req.files;
+        const info = req.body;
 
        const speakers = new Array();
-       for(let i=0; i<files.length(); i++) {
+       for(let i=0; i<files.length; i++) {
            let speaker = {
-               name: info[i].name,
-               post: info[i].post,
-               description: info[i].description,
-               imageUrl: files[i].path
+               name: info.name[i],
+               designation: info.designation[i],
+               description: info.description[i],
+               imgurl: files[i].path
            }
 
            speakers.push(speaker);
        }
-
+       console.log(speakers);
        db.Speakers.bulkCreate(speakers)
        .then(() => {
            return db.Speakers.findAll()
        })
        .then((allSpeakers) => {
-            res.status(200).jaon({success: true, allSpeakers: allSpeakers}) ;
-       })
-       .catch(err => {
-            res.status(500).json({success: false, err: err});
-       })
+            res.status(200).json({success: true, allSpeakers: allSpeakers}) ;
+       });
     }
+       
 }

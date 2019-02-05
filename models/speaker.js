@@ -1,19 +1,19 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/database');
 
-const Speaker = sequelize.define('speaker', {
+const Speakers = sequelize.define('speaker', {
     id: {
         type: Sequelize.INTEGER,
-        allowNull:false,
-        autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
     },
 
     name: {
         type: Sequelize.STRING
     },
 
-    post: {
+    designation: {
         type: Sequelize.STRING
     },
 
@@ -21,11 +21,10 @@ const Speaker = sequelize.define('speaker', {
         type: Sequelize.STRING
     },
 
-    imgUrl: {
+    imgurl: {
         type: Sequelize.STRING
-    },
-
+    }
 
 });
 
-module.exports = Speaker;
+module.exports = Speakers;
