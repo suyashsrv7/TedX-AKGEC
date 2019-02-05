@@ -22,7 +22,9 @@ const storage = multer.diskStorage({
 
   filename: (req, file, cb) => {
     let date = new Date();
-    let filename =date.valueOf().toString() + "-" +file.originalname ;
+    let i = file.originalname.lastIndexOf('.');
+    let ext = file.originalname.substr(i, file.originalname.length);
+    let filename =date.valueOf().toString() + ext ;
     cb(null, filename);
   }
 });
@@ -34,7 +36,7 @@ app.use(bodyParser.urlencoded({limit:'50mb', extended: false}));
 app.use(multer({storage: storage}).array('image', 20)) ;
 app.use('/api/uploads', express.static(__dirname + '/uploads'));
 
-// app.use(bodyParser.json({limit:'50mb'}));
+app.use(bodyParser.json({limit:'50mb'}));
 
 app.use(passport.initialize());
 app.get('/', (req, res) => {
