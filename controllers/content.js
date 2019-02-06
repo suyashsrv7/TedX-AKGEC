@@ -235,7 +235,7 @@ module.exports = {
                 var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
                 res.status(200).json({success: true, diffDays: diffDays});
             } 
-            else res.status(404).json({success: false, err: "Not found"});
+            else res.status(200).json({success: false, err: "Not found"});
         })
         .catch(err => {
             res.status(500).json({success: false, err: err});
