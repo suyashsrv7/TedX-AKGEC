@@ -45,7 +45,7 @@ router.post('/send-mail', verifyCaptcha, content.sendMail);
 router.post('/update-sponsor', passport.authenticate('jwt', {session: false}), content.updateSponsor);
 router.post('/update-speaker', passport.authenticate('jwt', {session: false}), content.updateSpeaker);
 router.post('/update-team-member', passport.authenticate('jwt', {session: false}), content.updateTeamMember);
-router.post('/update-event-date', passport.authenticate('jwt', {session: false}), content.updateEventDate);
+router.post('/update-event-date', content.updateEventDate);
 
 router.post('/delete-speaker', passport.authenticate('jwt', {session: false}), content.deleteSpeaker)
 router.post('/delete-sponsor', passport.authenticate('jwt', {session: false}), content.deleteSponsor)

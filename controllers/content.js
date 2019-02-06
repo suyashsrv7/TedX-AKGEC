@@ -9,7 +9,7 @@ function countRemainingDays(date) {
     var year = dateObj.getUTCFullYear();
     var newdate = month + "/" + day + "/" + year;
     var date1 = new Date(newdate);
-    var date2 = new Date(date[0].event_date);
+    var date2 = new Date(date);
     var timeDiff = Math.abs(date2.getTime() - date1.getTime());
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     return diffDays; 
@@ -189,6 +189,7 @@ module.exports = {
         Promise.all([aboutUs, speakers, team, eventDate]).then(([resA, resB, resC, resD]) => {
             let data;
             if(resA && resB && resC && resD) {
+                console.log(resD[0].event_date);
                  data = {
                     aboutUs: resA,
                     speakers: resB,
@@ -238,8 +239,8 @@ module.exports = {
         db.EventDate.findAll()
         .then(date => {
             if(date.length > 0){
-                var diffDays = countRemainingDays(date);
-                res.status(200).json({success: true, diffDays: diffDays});
+                var diffDays = countRemainingDays(date[0].event_date);
+                res.status(200).json({success: true, diffDays: diffDays, id:date[0].id});
             } 
             else res.status(200).json({success: false, err: "Not found"});
         })
@@ -257,7 +258,7 @@ module.exports = {
         .then(event_date => {
             if(event_date) 
                 return event_date.update({
-                    event_date: req.body.event_date
+                    event_date: req.body.date
                 }) 
         })
         .then(() => {
