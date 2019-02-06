@@ -2,6 +2,18 @@
 
 const db = require('../models/index');
 const mail = require('../utils/sendmail');
+function countRemainingDays(date) {
+    var dateObj = new Date();
+    var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    var newdate = month + "/" + day + "/" + year;
+    var date1 = new Date(newdate);
+    var date2 = new Date(date[0].event_date);
+    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return diffDays; 
+} 
 
 module.exports = {
     createAboutUsContent: (req, res) => {
@@ -173,13 +185,15 @@ module.exports = {
         const aboutUs = db.About.findAll();
         const speakers = db.Speakers.findAll();
         const team = db.Team.findAll();
-        Promise.all([aboutUs, speakers, team]).then(([resA, resB, resC]) => {
+        const eventDate = db.EventDate.findAll();
+        Promise.all([aboutUs, speakers, team, eventDate]).then(([resA, resB, resC, resD]) => {
             let data;
-            if(resA && resB && resC) {
+            if(resA && resB && resC && resD) {
                  data = {
                     aboutUs: resA,
                     speakers: resB,
-                    team: resC
+                    team: resC,
+                    eventDate: countRemainingDays(resD[0].event_date)
                 }
             } else {
                  data = null;
@@ -224,15 +238,7 @@ module.exports = {
         db.EventDate.findAll()
         .then(date => {
             if(date.length > 0){
-                var dateObj = new Date();
-                var month = dateObj.getUTCMonth() + 1; //months from 1-12
-                var day = dateObj.getUTCDate();
-                var year = dateObj.getUTCFullYear();
-                var newdate = month + "/" + day + "/" + year;
-                var date1 = new Date(newdate);
-                var date2 = new Date(date[0].event_date);
-                var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+                var diffDays = countRemainingDays(date);
                 res.status(200).json({success: true, diffDays: diffDays});
             } 
             else res.status(200).json({success: false, err: "Not found"});
