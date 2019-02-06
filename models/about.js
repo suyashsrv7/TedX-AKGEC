@@ -11,13 +11,17 @@ const About = sequelize.define('about', {
         primaryKey: true
     },
     ted: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
     },
     tedx:{
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
     },
     tedx_akgec: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
+    },
+
+    footer: {
+        type: Sequelize.TEXT
     }
 });
 

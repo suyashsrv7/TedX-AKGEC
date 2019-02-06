@@ -20,7 +20,8 @@ module.exports = {
         let aboutUs = {
             ted: req.body.ted,
             tedx: req.body.tedx,
-            tedx_akgec: req.body.tedx_akgec
+            tedx_akgec: req.body.tedx_akgec,
+            footer: req.body.footer
         }
 
         db.About.create(aboutUs)
@@ -32,7 +33,8 @@ module.exports = {
         let aboutUs = {
             ted: req.body.ted,
             tedx: req.body.tedx,
-            tedx_akgec: req.body.tedx_akgec
+            tedx_akgec: req.body.tedx_akgec,
+            footer: req.body.footer
         }
         console.log(aboutUs);
         db.About.findOne({
@@ -45,7 +47,8 @@ module.exports = {
             if(saved) return saved.update({
                 ted: aboutUs.ted,
                 tedx: aboutUs.tedx,
-                tedx_akgec: aboutUs.tedx_akgec
+                tedx_akgec: aboutUs.tedx_akgec,
+                footer: aboutUs.footer
             });
         })
         .then(() => {

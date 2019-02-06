@@ -18,7 +18,7 @@ const Speakers = sequelize.define('speaker', {
     },
 
     description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
     },
 
     imgurl: {
