@@ -37,6 +37,7 @@ router.post('/update-about-us', passport.authenticate('jwt', {session: false}), 
 
 router.post('/create-speakers', passport.authenticate('jwt', {session: false}), content.createSpeakers);
 router.post('/create-sponsors', passport.authenticate('jwt', {session: false}), content.createSponsors);
+router.post('/create-event-date', content.createDate);
 router.post('/create-team', passport.authenticate('jwt', {session: false}), content.createTeam);
 router.get('/get-all',passport.authenticate('jwt', {session: false}), content.getAll);
 router.post('/send-mail', verifyCaptcha, content.sendMail);
@@ -45,6 +46,8 @@ router.get('/get-about-us', passport.authenticate('jwt', {session: false}), cont
 router.get('/get-speakers', passport.authenticate('jwt', {session: false}), content.getSpeakers);
 router.get('/get-sponsors', passport.authenticate('jwt', {session: false}), content.getSponsors);
 router.get('/get-team', passport.authenticate('jwt', {session: false}), content.getTeam);
+router.get('/get-event-date', content.getEventDate);
+
 
 
 

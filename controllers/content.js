@@ -223,9 +223,17 @@ module.exports = {
     getEventDate: (req, res) => {
         db.EventDate.findAll()
         .then(date => {
-            if(date){
-                // let parts = date.split('/');
-                res.status(200).json({success: true, date: date});
+            if(date.length > 0){
+                var dateObj = new Date();
+                var month = dateObj.getUTCMonth() + 1; //months from 1-12
+                var day = dateObj.getUTCDate();
+                var year = dateObj.getUTCFullYear();
+                var newdate = month + "/" + day + "/" + year;
+                var date1 = new Date(newdate);
+                var date2 = new Date(date[0].event_date);
+                var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+                res.status(200).json({success: true, diffDays: diffDays});
             } 
             else res.status(404).json({success: false, err: "Not found"});
         })
@@ -254,6 +262,31 @@ module.exports = {
         }))
         .catch(err => {
             res.status(500).json({success: false, err: errd})
+        })
+    },
+
+    updateSpeaker: (req, res) => {
+        db.Speakers.findOne({
+            where: {
+                id: req.body.id
+            }
+        })
+        .then((found) => {
+            if(found) return found.update({
+                name: req.body.name,
+                designation: req.body.designation,
+                description: req.body.description,
+                imgurl: req.files[0].filename
+            })
+        })
+        .then(() => {
+            return db.Speakers.findAll()
+        })
+        .then((allSpeakers) => {
+            res.status(200).json({success: true, allSpeakers: allSpeakers});
+        })
+        .catch(err => {
+            res.status(500).json({success: false, err: err});
         })
     }
 
