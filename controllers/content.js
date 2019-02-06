@@ -1,7 +1,7 @@
 
 
 const db = require('../models/index');
-const sendMail = require('../utils/sendmail');
+const mail = require('../utils/sendmail');
 
 module.exports = {
     createAboutUsContent: (req, res) => {
@@ -198,8 +198,8 @@ module.exports = {
         let mailTo = 'suyashsrv7@gmail.com';
         let message = req.body.message;
         let subject = "TedX-AKGEC "+name;
-        message = meassgae + " "
-        sendMail(senderMail, mailTo, subject, message, function(err, res) {
+        message = message + " "
+        mail.sendYourMail(senderMail, mailTo, subject, message, function(err, resp) {
             if(err) res.status(200).json({success: false, err: "Mail could not be sent"});
             else res.status(200).json({success: true, msg: "Mail sent successfully"});
         })
