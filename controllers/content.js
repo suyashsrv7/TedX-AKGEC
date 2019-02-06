@@ -111,7 +111,7 @@ module.exports = {
             members.push(member);
         }
 
-        db.Team.bulkCreate(speakers)
+        db.Team.bulkCreate(members)
        .then(() => {
            return db.Team.findAll()
        })
@@ -204,6 +204,57 @@ module.exports = {
             else res.status(200).json({success: true, msg: "Mail sent successfully"});
         })
 
+    },
+
+    createDate: (req, res) => {
+        let date = req.body.date;
+        db.EventDate.create({event_date: date })
+        .then(saved => {
+            if(saved)
+                res.status(200).json({success: true, saved: saved});
+            else 
+                res.status(500).json({success: false, err: "Internal Error"});
+        })
+        .catch(err => {
+            res.status(500).json({success: false, err: err});
+        })
+    },
+
+    getEventDate: (req, res) => {
+        db.EventDate.findAll()
+        .then(date => {
+            if(date){
+                // let parts = date.split('/');
+                res.status(200).json({success: true, date: date});
+            } 
+            else res.status(404).json({success: false, err: "Not found"});
+        })
+        .catch(err => {
+            res.status(500).json({success: false, err: err});
+        })
+    },
+
+    updateEventDate: (req, res) => {
+        db.EventDate.findOne({
+            where: {
+                id: req.body.id
+            }
+        })
+        .then(event_date => {
+            if(event_date) 
+                return event_date.update({
+                    event_date: req.body.event_date
+                }) 
+        })
+        .then(() => {
+            return db.EventDate.findAll();
+        })
+        .then((savedDate => {
+            res.status(200).json({success: true, date: savedDate});
+        }))
+        .catch(err => {
+            res.status(500).json({success: false, err: errd})
+        })
     }
 
        
