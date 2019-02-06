@@ -39,14 +39,26 @@ router.post('/create-speakers', passport.authenticate('jwt', {session: false}), 
 router.post('/create-sponsors', passport.authenticate('jwt', {session: false}), content.createSponsors);
 router.post('/create-event-date', content.createDate);
 router.post('/create-team', passport.authenticate('jwt', {session: false}), content.createTeam);
-router.get('/get-all',passport.authenticate('jwt', {session: false}), content.getAll);
+
 router.post('/send-mail', verifyCaptcha, content.sendMail);
+
+router.post('/update-sponsor', passport.authenticate('jwt', {session: false}), content.updateSponsor);
+router.post('/update-speaker', passport.authenticate('jwt', {session: false}), content.updateSpeaker);
+router.post('/update-team-member', passport.authenticate('jwt', {session: false}), content.updateTeamMember);
+router.post('/update-event-date', passport.authenticate('jwt', {session: false}), content.updateEventDate);
+
+router.post('/delete-speaker', passport.authenticate('jwt', {session: false}), content.deleteSpeaker)
+router.post('/delete-sponsor', passport.authenticate('jwt', {session: false}), content.deleteSponsor)
+router.post('/delete-team-member', passport.authenticate('jwt', {session: false}), content.deleteTeamMember)
+
 
 router.get('/get-about-us', passport.authenticate('jwt', {session: false}), content.getAbotUsContent);
 router.get('/get-speakers', passport.authenticate('jwt', {session: false}), content.getSpeakers);
 router.get('/get-sponsors', passport.authenticate('jwt', {session: false}), content.getSponsors);
 router.get('/get-team', passport.authenticate('jwt', {session: false}), content.getTeam);
 router.get('/get-event-date', content.getEventDate);
+router.get('/get-all', content.getAll);
+
 
 
 

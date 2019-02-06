@@ -288,6 +288,97 @@ module.exports = {
         .catch(err => {
             res.status(500).json({success: false, err: err});
         })
+    },
+
+    updateSponsor: (req, res) => {
+        db.Sponsors.findOne({
+            where: {
+                id: req.body.id
+            }
+        })
+        .then((found) => {
+            if(found) return found.update({
+                imgurl: req.files[0].filename
+            })
+        })
+        .then(() => {
+            return db.Sponsors.findAll()
+        })
+        .then((allSponsors) => {
+            res.status(200).json({success: true, allSponsors: allSponsors});
+        })
+        .catch(err => {
+            res.status(500).json({success: false, err: err});
+        })
+    },
+
+    updateTeamMember: (req, res) => {
+        db.Team.findOne({
+            where: {
+                id: req.body.id
+            }
+        })
+        .then((found) => {
+            if(found) return found.update({
+                name: req.body.name,
+                designation: req.body.designation,
+                imgurl: req.files[0].filename
+            })
+        })
+        .then(() => {
+            return db.Team.findAll()
+        })
+        .then((allMembers) => {
+            res.status(200).json({success: true, allMembers: allMembers});
+        })
+        .catch(err => {
+            res.status(500).json({success: false, err: err});
+        })
+    },
+
+    deleteSpeaker: (req, res) => {
+        db.Speakers.destroy({
+            where: {
+                id: req.body.id
+            }
+        })
+        .then((affectedRows) => {
+            if(affectedRows > 0) res.status(200).json({succesS: true})
+            else res.status(500).json({success: false});
+        })
+        .catch(err => {
+            res.status(500).json({success: false, err:err});
+        })
+    },
+
+    deleteSponsor: (req, res) => {
+        db.Sponsors.destroy({
+            where: {
+                id: req.body.id
+            }
+        })
+        .then((affectedRows) => {
+            if(affectedRows > 0) res.status(200).json({succesS: true})
+            else res.status(500).json({success: false});
+        })
+        .catch(err => {
+            res.status(500).json({success: false, err:err});
+        })
+    },
+
+    deleteTeamMember: (req, res) => {
+        db.Team.destroy({
+            where: {
+                id: req.body.id
+            }
+        })
+        .then((affectedRows) => {
+            if(affectedRows > 0) res.status(200).json({succesS: true})
+            else res.status(500).json({success: false});
+        })
+        .catch(err => {
+            res.status(500).json({success: false, err:err});
+        })
     }
 
        
