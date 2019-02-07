@@ -52,7 +52,16 @@ router.post('/delete-sponsor', passport.authenticate('jwt', {session: false}), c
 router.post('/delete-team-member', passport.authenticate('jwt', {session: false}), content.deleteTeamMember)
 
 
-router.get('/get-about-us', passport.authenticate('jwt', {session: false}), content.getAbotUsContent);
+router.get('/get-about-us', passport.authenticate('jwt', 
+
+
+
+
+
+
+
+
+{session: false}), content.getAbotUsContent);
 router.get('/get-speakers', passport.authenticate('jwt', {session: false}), content.getSpeakers);
 router.get('/get-sponsors',  content.getSponsors);
 router.get('/get-team', passport.authenticate('jwt', {session: false}), content.getTeam);

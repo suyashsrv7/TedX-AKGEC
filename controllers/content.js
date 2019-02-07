@@ -78,17 +78,28 @@ module.exports = {
        const info = req.body;
        console.log(files);
        const speakers = new Array();
-       for(let i=0; i<files.length; i++) {
-           let fileName = files[i].filename;
-           let speaker = {
-               name: info.name[i],
-               designation: info.designation[i],
-               description: info.description[i],
-               imgurl: fileName
-           }
-
-           speakers.push(speaker);
-       }
+       if(typeof(req.body.name) === "string" && typeof(req.body.designation) === "string" && typeof(req.body.description) === "string") {
+            let speaker = {
+                name: req.body.name,
+                designation: req.body.designation,
+                description: req.body.description,
+                imgurl: files[0].filename
+            }
+            speakers.push(speaker);
+        } else {
+            for(let i=0; i<files.length; i++) {
+                let fileName = files[i].filename;
+                let speaker = {
+                    name: info.name[i],
+                    designation: info.designation[i],
+                    description: info.description[i],
+                    imgurl: fileName
+                }
+     
+                speakers.push(speaker);
+            }
+        }
+       
        console.log(speakers);
        db.Speakers.bulkCreate(speakers)
        .then(() => {
@@ -113,18 +124,29 @@ module.exports = {
     createTeam: (req, res) => {
         const files = req.files;
         const info = req.body;
-        console.log(files, info);
         let members = new Array();
-        for(let i=0; i<files.length; i++) {
-            let filename = files[i].filename;
+        console.log(files, info);
+        if(typeof(req.body.name) === "string" && typeof(req.body.designation) === "string") {
             let member = {
-                name: info.name[i],
-                designation: info.designation[i],
-                imgurl: filename
+                name: req.body.name,
+                designation: req.body.designation,
+                imgurl: files[0].filename
             }
-
             members.push(member);
+        } else {
+            for(let i=0; i<files.length; i++) {
+                let filename = files[i].filename;
+                let member = {
+                    name: info.name[i],
+                    designation: info.designation[i],
+                    imgurl: filename
+                }
+    
+                members.push(member);
+            }
         }
+        
+        
 
         db.Team.bulkCreate(members)
        .then(() => {
