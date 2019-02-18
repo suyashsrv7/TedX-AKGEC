@@ -3,7 +3,7 @@
 const db = require('../models/index');
 const mail = require('../utils/sendmail');
 function countRemainingDays(date) {
-    let newDate = new Date("3/14/2019");
+    let newDate = new Date(date);
     let dateNow = new Date();
     let add = (5*3600 + 30*60) * 1000;
     let futureTime = newDate.getTime() + add;
