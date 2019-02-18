@@ -3,16 +3,19 @@
 const db = require('../models/index');
 const mail = require('../utils/sendmail');
 function countRemainingDays(date) {
-    var dateObj = new Date();
-    var month = dateObj.getUTCMonth() + 1; //months from 1-12
-    var day = dateObj.getUTCDate();
-    var year = dateObj.getUTCFullYear();
-    var newdate = month + "/" + day + "/" + year;
-    var date1 = new Date(newdate);
-    var date2 = new Date(date);
-    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return diffDays; 
+    let newDate = new Date("3/14/2019");
+    let dateNow = new Date();
+    let add = (5*3600 + 30*60) * 1000;
+    let futureTime = newDate.getTime() + add;
+    // console.log(newDate);
+    let istDAte = new Date(dateNow.getTime()+add);
+    // console.log(istDAte);
+    let currentTime = istDAte.getTime();
+    let daysLeft = (futureTime - currentTime) / (24*3600*1000);
+    // console.log(Math.ceil(daysLeft));
+    return daysLeft;
+
+
 } 
 
 module.exports = {
